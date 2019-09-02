@@ -3,7 +3,7 @@
 		<zj-header :active="active"></zj-header>
 		<mt-tab-container v-model="active" swipeable>
 			<mt-tab-container-item id="tab1">
-				<h1>这是首页的第一个分页</h1>
+				<carousel></carousel>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
 				<h1>这是首页的第二个分页</h1>
@@ -44,9 +44,13 @@
 	</div>
 </template>
 <script>
+import carousel from "../components/index/carousel";
 export default {
 	data(){
 		return {active:"tab1"}
+	},
+	components:{
+		carousel
 	}
 }
 </script>

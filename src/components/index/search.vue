@@ -1,7 +1,7 @@
 <template>
 	<div class="search">
 		<input type="text" placeholder="请输入要搜索的内容">
-		<cart></cart>
+		<cart-icon></cart-icon>
 	</div>
 </template>
 <script>
