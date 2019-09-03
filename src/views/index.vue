@@ -4,6 +4,7 @@
 		<mt-tab-container v-model="active" swipeable>
 			<mt-tab-container-item id="tab1">
 				<carousel></carousel>
+				<theme></theme>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
 				<h1>这是首页的第二个分页</h1>
@@ -19,7 +20,7 @@
 			</mt-tab-container-item>
 		</mt-tab-container>
 		
-		<mt-tabbar v-model="active">
+		<mt-tabbar v-model="active" fixed>
 			<mt-tab-item id="tab1">
 				<img :src="active=='tab1'?'images/icon_home_main_select.png':'images/icon_home_main_unselect.png'" alt="" slot="icon">
 				<span :style="active=='tab1'?'color:#ffac03':'color:#000'">首页</span>
@@ -41,16 +42,18 @@
 				<span :style="active=='tab5'?'color:#ffac03':'color:#000'">我的</span>
 			</mt-tab-item>
 		</mt-tabbar>
+		<div class="fill-buttom"></div>
 	</div>
 </template>
 <script>
 import carousel from "../components/index/carousel";
+import theme from "../components/index/theme";
 export default {
 	data(){
 		return {active:"tab1"}
 	},
 	components:{
-		carousel
+		carousel,theme
 	}
 }
 </script>
@@ -61,5 +64,9 @@ export default {
 	}
 	.mint-tabbar > .mint-tab-item.is-selected{
 		background: #fff;
+	}
+	.fill-buttom{
+		width: 100%;
+		height: 56px;
 	}
 </style>
