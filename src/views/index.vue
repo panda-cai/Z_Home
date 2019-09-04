@@ -1,10 +1,11 @@
 <template>
 	<div>
 		<zj-header :active="active"></zj-header>
-		<mt-tab-container v-model="active" swipeable>
+		<mt-tab-container v-model="active">
 			<mt-tab-container-item id="tab1">
 				<carousel></carousel>
 				<theme></theme>
+				<showlist :title="'至家新品'"></showlist>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
 				<h1>这是首页的第二个分页</h1>
@@ -48,12 +49,13 @@
 <script>
 import carousel from "../components/index/carousel";
 import theme from "../components/index/theme";
+import showlist from "../components/index/showList";
 export default {
 	data(){
 		return {active:"tab1"}
 	},
 	components:{
-		carousel,theme
+		carousel,theme,showlist
 	}
 }
 </script>
