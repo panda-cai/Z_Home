@@ -7,13 +7,13 @@
 				<span>{{pon}}</span><span>/5</span>
 			</div>
 		</div>
-		<ul class="show-list" @touchmove="move" @touchstart="touchStart" :style="`transform:translateX(${touchData.len}px)`" :class="ts">
+		<ul class="show-list" @touchmove="move" @touchstart="touchStart" @touchend="leave" :style="`transform:translateX(${touchData.len}px)`" :class="ts">
 			<!-- :style="'transform:translateX('+touchData.len+'px)'" -->
 			<li class="show-item">
 				<router-link to="/">
 					<img src="images/new1.png" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥48.80</span></div>
+						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥1.80</span></div>
 						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
 					</div>
 				</router-link>
@@ -22,7 +22,7 @@
 				<router-link to="/">
 					<img src="images/new2.png" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥48.80</span></div>
+						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥2.80</span></div>
 						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
 					</div>
 				</router-link>
@@ -31,7 +31,7 @@
 				<router-link to="/">
 					<img src="images/new1.png" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥48.80</span></div>
+						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥3.80</span></div>
 						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
 					</div>
 				</router-link>
@@ -40,7 +40,7 @@
 				<router-link to="/">
 					<img src="images/new2.png" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥48.80</span></div>
+						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥4.80</span></div>
 						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
 					</div>
 				</router-link>
@@ -49,7 +49,7 @@
 				<router-link to="/">
 					<img src="images/new1.png" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥48.80</span></div>
+						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥5.80</span></div>
 						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
 					</div>
 				</router-link>
@@ -65,7 +65,8 @@ export default {
 			pon:1,
 			touchData:{
 				start:0,
-				len:0
+				len:0,
+				end:0
 			},
 			ts:{
 				"transition-show":false
@@ -75,13 +76,14 @@ export default {
 	props:["title"],
 	methods:{
 		touchStart(e) {
-			console.log("上一次开始的点是"+this.touchData.start)
-			console.log("这一次开始的点是"+e.touches[0].pageX);
+			// console.log("上一次开始的点是"+this.touchData.start)
+			// console.log("这一次开始的点是"+e.touches[0].pageX);
 			this.touchData.start = e.touches[0].pageX;//获取触控点开始相对于屏幕左边的距离
 		},
 		move(e){
 			// console.log(1);
-			// console.log(e.touches[0].pageX);//获取触控点相对于屏幕左边的距离
+			// console.log("移动的"+e.touches[0].pageX);//获取触控点相对于屏幕左边的距离
+			// this.touchData.len
 			this.touchData.len = e.touches[0].pageX-this.touchData.start;//将坐标原点置于触控点
 			// if(this.touchData.len<-110){
 			// 	this.ts["transition-show"]=true;
@@ -90,8 +92,13 @@ export default {
 			//  	this.ts["transition-show"]=false;
 			// 	}, 500);
 			//  }
-			console.log(this.touchData.len);
+			// console.log("当前的"+this.touchData.len);
 			// console.log(e.target[0]);
+		},
+		leave(){
+				this.touchData.end +=	this.touchData.len;
+				console.log(this.touchData.leave);
+				console.log(this.touchData.len);
 		}
 	}
 }
