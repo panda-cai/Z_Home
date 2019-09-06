@@ -18,51 +18,6 @@
 					</div>
 				</router-link>
 			</li>
-			<!-- <li class="show-item">
-				<router-link to="/">
-					<img src="images/index_show/new1.jpg" alt="" class="product-img">
-					<div class="product-info">
-						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>￥12.00</span></div>
-						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
-					</div>
-				</router-link>
-			</li>
-			<li class="show-item">
-				<router-link to="/">
-					<img src="images/index_show/new1.jpg" alt="" class="product-img">
-					<div class="product-info">
-						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>￥12.00</span></div>
-						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
-					</div>
-				</router-link>
-			</li>
-			<li class="show-item">
-				<router-link to="/">
-					<img src="images/index_show/new1.jpg" alt="" class="product-img">
-					<div class="product-info">
-						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>12</span></div>
-						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
-					</div>
-				</router-link>
-			</li>
-			<li class="show-item">
-				<router-link to="/">
-					<img src="images/index_show/new1.jpg" alt="" class="product-img">
-					<div class="product-info">
-						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>12</span></div>
-						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
-					</div>
-				</router-link>
-			</li>
-			<li class="show-item">
-				<router-link to="/">
-					<img src="images/index_show/new1.jpg" alt="" class="product-img">
-					<div class="product-info">
-						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>12</span></div>
-						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
-					</div>
-				</router-link>
-			</li> -->
 		</ul>
 	</div>	
 </template>
@@ -104,7 +59,7 @@ export default {
 			// console.log(1);
 			// console.log("移动的"+e.touches[0].pageX);//获取触控点相对于屏幕左边的距离
 			// this.touchData.len
-			this.touchData.len = e.touches[0].pageX-this.touchData.start;//将坐标原点置于触控点
+			this.touchData.len = e.touches[0].pageX-this.touchData.start;//获取拖动的距离
 			// if(this.touchData.len<-110){
 			// 	this.ts["transition-show"]=true;
 			// 	this.touchData.len=-280;
@@ -117,8 +72,6 @@ export default {
 		},
 		leave(){
 				this.touchData.end +=	this.touchData.len;
-				console.log(this.touchData.leave);
-				console.log(this.touchData.len);
 		}
 	},
 	created(){
