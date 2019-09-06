@@ -5,7 +5,8 @@
 			<mt-tab-container-item id="tab1">
 				<carousel></carousel>
 				<theme></theme>
-				<showlist :title="'至家新品'"></showlist>
+				<showlist :title="'至家新品'" :position="'new'"></showlist>
+				<showlist :title="'现货推荐'" :position="'recommend'"></showlist>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
 				<h1>这是首页的第二个分页</h1>

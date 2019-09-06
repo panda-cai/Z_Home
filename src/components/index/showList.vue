@@ -9,51 +9,60 @@
 		</div>
 		<ul class="show-list" @touchmove="move" @touchstart="touchStart" @touchend="leave" :style="`transform:translateX(${touchData.len}px)`" :class="ts">
 			<!-- :style="'transform:translateX('+touchData.len+'px)'" -->
-			<li class="show-item">
+			<li class="show-item" v-for="(elem,i) of showlist" :key="i">
 				<router-link to="/">
-					<img src="images/new1.png" alt="" class="product-img">
+					<img :src="elem.img" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥1.80</span></div>
-						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
+						<div class="product-title"><span>{{elem.title}}</span><span>￥{{elem.price.toFixed(2)}}</span></div>
+						<div class="product-subtitle">{{elem.subtitle}}</div>
+					</div>
+				</router-link>
+			</li>
+			<!-- <li class="show-item">
+				<router-link to="/">
+					<img src="images/index_show/new1.jpg" alt="" class="product-img">
+					<div class="product-info">
+						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>￥12.00</span></div>
+						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
 					</div>
 				</router-link>
 			</li>
 			<li class="show-item">
 				<router-link to="/">
-					<img src="images/new2.png" alt="" class="product-img">
+					<img src="images/index_show/new1.jpg" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥2.80</span></div>
-						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
+						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>￥12.00</span></div>
+						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
 					</div>
 				</router-link>
 			</li>
 			<li class="show-item">
 				<router-link to="/">
-					<img src="images/new1.png" alt="" class="product-img">
+					<img src="images/index_show/new1.jpg" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥3.80</span></div>
-						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
+						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>12</span></div>
+						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
 					</div>
 				</router-link>
 			</li>
 			<li class="show-item">
 				<router-link to="/">
-					<img src="images/new2.png" alt="" class="product-img">
+					<img src="images/index_show/new1.jpg" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥4.80</span></div>
-						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
+						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>12</span></div>
+						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
 					</div>
 				</router-link>
 			</li>
 			<li class="show-item">
 				<router-link to="/">
-					<img src="images/new1.png" alt="" class="product-img">
+					<img src="images/index_show/new1.jpg" alt="" class="product-img">
 					<div class="product-info">
-						<div class="product-title"><span>北欧实木ins风边|安装大放松放松</span><span>￥5.80</span></div>
-						<div class="product-subtitle">优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿优质楠竹腿</div>
+						<div class="product-title"><span>elem.titlefdsfdsfsdfsdfsdfs</span><span>12</span></div>
+						<div class="product-subtitle">elem.subtitlefdfgdgfdgfd</div>
 					</div>
 				</router-link>
-			</li>
+			</li> -->
 		</ul>
 	</div>	
 </template>
@@ -68,13 +77,24 @@ export default {
 				len:0,
 				end:0
 			},
+			showlist:[],
 			ts:{
 				"transition-show":false
 			}
 		}
 	},
-	props:["title"],
+	props:["title","position"],
 	methods:{
+		getShowlist(){
+			this.axios.get("/index/show",{
+				params:{
+					position:this.position
+				}
+			}).then(result=>{
+				this.showlist=result.data;
+				console.log(result.data);
+			})
+		},
 		touchStart(e) {
 			// console.log("上一次开始的点是"+this.touchData.start)
 			// console.log("这一次开始的点是"+e.touches[0].pageX);
@@ -100,6 +120,9 @@ export default {
 				console.log(this.touchData.leave);
 				console.log(this.touchData.len);
 		}
+	},
+	created(){
+		this.getShowlist();
 	}
 }
 </script>
@@ -107,11 +130,13 @@ export default {
 <style scoped>
 	.show-list{
 		display: flex;
+		width: 500%;
 	}
 	.product-img{
 		width: 100%;
 	}
 	.product-subtitle{
+		text-align: left;
 		font-size: 0.75rem;
 		color: #afb1b9;
 		overflow: hidden;
@@ -129,13 +154,14 @@ export default {
 		font-size: 1rem;
 	}
 	.product-title span:first-child{
+		text-align: left;
 		width: 70%;
 		overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
 	}
 	.show-item{
-		width: 100%;
+		width: 19%;
 	}
 	.transition-show{
 		transition: all 0.5s linear;
