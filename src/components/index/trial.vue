@@ -1,31 +1,33 @@
 <template>
-	<div class="trial">
+	<div class="trial inner-border">
 		<p class="title">精选体验家</p>
-		<img src="images/index_trial/trial.png" alt="" class="trial-img">
+		<img src="images/index_trial/trial.png" alt="" class="trial-img" @click="toTrial">
 		<ul class="trial-list">
-			<li class="trial-item">
-				<img src="images/index_trial/trial_p1.jpg" alt="">
-				<span>成就别致空间</span>
-			</li>
-			<li class="trial-item">
-				<img src="images/index_trial/trial_p1.jpg" alt="">
-				<span>成就别致空间</span>
-			</li>
-			<li class="trial-item">
-				<img src="images/index_trial/trial_p1.jpg" alt="">
-				<span>成就别致空间</span>
-			</li>
-			<li class="trial-item">
-				<img src="images/index_trial/trial_p1.jpg" alt="">
-				<span>成就别致空间</span>
-			</li>
-			<li class="trial-item">
-				<img src="images/index_trial/trial_p1.jpg" alt="">
-				<span>成就别致空间</span>
+			<li class="trial-item" v-for="(elem,i) of trial" :key="i">
+				<img :src="elem.showimg" alt="">
+				<span v-text="elem.showtitle"></span>
 			</li>
 		</ul>
 	</div>
 </template>
+<script>
+export default {
+	data(){
+		return {trial:[]}
+	},
+	methods:{
+		gettrial(){
+			this.axios.get("/index/index_trial").then(result=>{
+				this.trial=result.data;
+			})
+		},
+	},
+	props:["toTrial"],
+	created(){
+		this.gettrial();
+	}
+}
+</script>
 
 <style scoped>
 	.trial-item{
@@ -43,18 +45,9 @@
 		width:100%;
 	}
 	.trial-list{
-		width: 200%;
+		width: 250%;
 		display: flex;
 		justify-content: space-between;
-	}
-	.title{
-		font-size: 1.4rem;
-		font-weight: bold;
-    text-align: left;
-		display: inline-block;
-	}
-	.trial{
-		padding: 0 8%;
 	}
 	.trial-img{
 		width: 100%;

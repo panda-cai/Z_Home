@@ -1,8 +1,8 @@
 <template>
 <!-- 主页新品与现货推荐 -->
-	<div class="new-product">
+	<div class="new-product inner-border">
 		<div class="showtitle">
-			<p>{{title}}</p>
+			<p class="title">{{title}}</p>
 			<div class="showpage">
 				<span>{{pon}}</span><span>/5</span>
 			</div>
@@ -47,7 +47,7 @@ export default {
 				}
 			}).then(result=>{
 				this.showlist=result.data;
-				console.log(result.data);
+				// console.log(result.data);
 			})
 		},
 		touchStart(e) {
@@ -126,19 +126,10 @@ export default {
 		text-decoration: none;
 		color:#000;
 	}
- 	.new-product{
-		padding: 0 8%;
-	}
 	.new-product>.showtitle{
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-	}
-	.new-product>.showtitle>p{
-		font-size: 1.4rem;
-		font-weight: bold;
-    text-align: left;
-		display: inline-block;
 	}
 	.showpage span{
 		color:#a2a4ab;

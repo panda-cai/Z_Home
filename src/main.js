@@ -5,7 +5,7 @@ import store from './store'
 import mintUI from 'mint-ui'
 import axios from 'axios'//配置axios
 import zjHeader from "./components/index/header"
-import cartIcon from "./components/cartIcon";
+import cartIcon from "./components/cartIcon";//全局组件购物车icon
 Vue.config.productionTip = false
 import "mint-ui/lib/style.css";
 //设置axios的默认请求路径

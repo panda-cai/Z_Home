@@ -5,3 +5,12 @@ ul{
   padding: 0;
   list-style: none;
 }
+.title{
+		font-size: 1.4rem;
+		font-weight: bold;
+    text-align: left;
+		display:block;
+  }
+.inner-border{
+  padding:0 5%;
+}

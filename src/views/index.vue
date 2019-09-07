@@ -7,7 +7,9 @@
 				<theme></theme>
 				<showlist :title="'至家新品'" :position="'new'"></showlist>
 				<showlist :title="'现货推荐'" :position="'recommend'"></showlist>
-				<trial></trial>
+				<trial :toTrial="toTrial"></trial>
+				<liveshow></liveshow>
+				<selectedlist></selectedlist>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
 				<h1>这是首页的第二个分页</h1>
@@ -53,12 +55,19 @@ import carousel from "../components/index/carousel";
 import theme from "../components/index/theme";
 import showlist from "../components/index/showList";
 import trial from "../components/index/trial";
+import liveshow from "../components/index/liveShow";
+import selectedlist from "../components/index/selectedList";
 export default {
 	data(){
 		return {active:"tab1"}
 	},
+	methods:{
+		toTrial(){
+			this.active="tab4";
+		}
+	},
 	components:{
-		carousel,theme,showlist,trial
+		carousel,theme,showlist,trial,liveshow,selectedlist
 	}
 }
 </script>

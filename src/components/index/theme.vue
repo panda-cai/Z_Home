@@ -1,5 +1,5 @@
 <template>
-  <div class="theme">
+  <div class="theme inner-border">
     <p>主题推荐</p>
     <ul class="theme-list">
       <li class="theme-item">
@@ -62,9 +62,6 @@
   </div>
 </template>
 <style scoped>
-  .theme{
-    padding:0 8%;
-  }
   .theme>p{
     font-size: 1.6rem;
     font-weight: bold;
