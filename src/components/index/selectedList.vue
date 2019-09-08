@@ -1,30 +1,30 @@
 <template>
   <div class="selected-list inner-border">
-    <p class="title">精选目录</p>
+    <p class="title" v-show="top_title">{{top_title}}</p>
     <div class="title-img">
       <router-link to="/">
-        <img src="images/selected_list/chair.jpg" alt />
+        <img :src="classimg" alt />
       </router-link>
     </div>
     <div class="product-list">
       <ul @click="changeid">
-        <li data-id="group1" :class="group=='group1'?'active':''">推荐</li>
-        <li data-id="group2" :class="group=='group2'?'active':''">餐椅</li>
-        <li data-id="group3" :class="group=='group3'?'active':''">休闲椅</li>
-        <li data-id="group4" :class="group=='group4'?'active':''">坐凳坐墩</li>
+        <li data-id="group1" :class="group=='group1'?'active':''">{{class_list[0]}}</li>
+        <li data-id="group2" :class="group=='group2'?'active':''">{{class_list[1]}}</li>
+        <li data-id="group3" :class="group=='group3'?'active':''">{{class_list[2]}}</li>
+        <li data-id="group4" :class="group=='group4'?'active':''">{{class_list[3]}}</li>
       </ul>
       <mt-tab-container v-model="group" swipeable>
         <mt-tab-container-item id="group1">
-          <selectitem></selectitem>
+          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
         </mt-tab-container-item>
         <mt-tab-container-item id="group2">
-          <h1 style="width:200px;height:200px;background:red">2</h1>
+          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
         </mt-tab-container-item>
         <mt-tab-container-item id="group3">
-          <h1 style="width:200px;height:200px;background:red">3</h1>
+          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
         </mt-tab-container-item>
         <mt-tab-container-item id="group4">
-          <h1 style="width:200px;height:200px;background:red">4</h1>
+          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
@@ -47,13 +47,14 @@ export default {
 	},
 	components:{
 		selectitem
-	}
+  },
+  props:['top_title','class_list','classimg']
 };
 </script>
 <style scoped>
 .active {
   color: #000 !important;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #000 !important;
 }
 .title-img img {
   width: 100%;
@@ -64,10 +65,11 @@ export default {
   justify-content: center;
 }
 .product-list ul li {
+  border-bottom: 2px solid transparent;
   padding: 0.5rem 0;
   color: #a0a2a9;
   font-size: 0.75rem;
-  transition: all 0.5s;
+  /* transition: all 0.5s; */
 }
 .product-list ul li + li {
   margin-left: 1rem;

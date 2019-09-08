@@ -9,7 +9,14 @@
 				<showlist :title="'现货推荐'" :position="'recommend'"></showlist>
 				<trial :toTrial="toTrial"></trial>
 				<liveshow></liveshow>
-				<selectedlist></selectedlist>
+				<!-- 理论上大分类应该由index传给list  详细分类由list传给item  这里所有分类都是由list传给item并不太完美往后改正 -->
+				<selectedlist :top_title="'精选目录'" :class_list="chair" :classimg="'images/selected_list/chair.jpg'"></selectedlist>
+				<div class="split"></div>
+				<selectedlist :class_list="decorate" :classimg="'images/selected_list/decorate.jpg'"></selectedlist>
+				<div class="split"></div>
+				<selectedlist :class_list="sofa" :classimg="'images/selected_list/sofa.jpg'"></selectedlist>
+				<div class="split"></div>
+				<selectedlist :class_list="table" :classimg="'images/selected_list/table.jpg'"></selectedlist>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
 				<h1>这是首页的第二个分页</h1>
@@ -59,7 +66,13 @@ import liveshow from "../components/index/liveShow";
 import selectedlist from "../components/index/selectedList";
 export default {
 	data(){
-		return {active:"tab1"}
+		return {
+			active:"tab1",
+			chair:["推荐","餐椅","休闲椅","坐凳坐墩"],
+			decorate:["推荐","挂画","抱枕","摆件"],
+			sofa:["推荐","单人沙发","双人沙发","多人沙发"],
+			table:["推荐","餐桌","书桌","茶几"]
+			}
 	},
 	methods:{
 		toTrial(){
@@ -73,6 +86,12 @@ export default {
 </script>
 
 <style scoped>
+	.split{
+		width: 90%;
+		margin: 1.2rem auto;
+		height: 1px;
+		border-top: 1px solid #f5f5f5;
+	}
 	.mint-tabbar{
 		border-top:1px solid #b2b2b2; 
 	}

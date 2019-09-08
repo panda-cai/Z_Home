@@ -1,11 +1,12 @@
 <template>
 <!-- 负责绘制商品列表的组件 -->
 		<ul class="product-list">
-			<li>
-				 <!-- v-for="(elem,i) of list" :key="i" -->
-				<div class="priduct-img"><img src="images/product/product1.png" alt=""></div>
-				<span class="product-title">商品名字商品名字商品名字商品名字商品名字商品名字</span>
-				<span class="product-price">商品价格</span>
+			<li v-for="(elem,i) of list" :key="i">
+				<router-link to="/">
+				<div class="priduct-img"><img :src="elem.showimg" alt=""></div>
+				<span class="product-title">{{elem.title}}</span>
+				<span class="product-price">￥{{elem.price}}</span>
+				</router-link>
 			</li>
 		</ul>
 </template>
@@ -17,13 +18,21 @@ export default {
 	},
 	methods:{
 		getList(){
-			this.axios.get()
+			this.axios.get("/index/index_product",{
+				params:{
+					p_class:this.p_class,
+					detail_class:this.detail_class
+				}
+			}).then(result=>{
+				this.list=result.data;
+				console.log(this.list);
+				});
 		}
 	},
 	created(){
-
+		this.getList();
 	},
-	props:[]
+	props:['p_class','detail_class']
 }
 </script>
 <style scoped>
