@@ -2,7 +2,7 @@
   <!-- 首页的轮播图组件 -->
   <div>
     <div class="carousel">
-      <ul class="carousel-list" :style="`margin-left:-${car_i*100}%`" :class="car_style">
+      <ul class="carousel-list" :style="`margin-left:-${car_i*100}%`" :class="car_style" @touchstart="stop" @touchend="play" @touchmove="move">
         <li class="carousel-item" v-for="(elem,i) of car_list" :key="i" :style="`width:25%`">
           <router-link to="/login">
             <img :src="elem.img" :alt="elem.title" />
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { clearInterval } from 'timers';
 export default {
   data() {
     return {
@@ -31,6 +32,11 @@ export default {
       // screen_width:0//屏幕宽度
       car_style: {
         "carousel-run": true
+      },
+      carousel:{},
+      touchData:{
+        strat:0,
+        len:0
       }
     };
   },
@@ -44,7 +50,7 @@ export default {
       });
     },
     carouselRun() {
-      var carousel = setInterval(() => {
+      this.carousel = setInterval(() => {
         //设置定时器隔着2s跳一次
         this.car_i++;
         if (this.car_i > this.car_list.length - 2) {
@@ -58,6 +64,17 @@ export default {
           }, 1000);
         }
       }, 3000);
+    },
+    stop(e){//触摸时停止播放
+      // console.log(123);
+      window.clearInterval(this.carousel);
+      this.touchData.strat=e.touches[0].pageX;
+    },
+    play(){//离开触摸时继续播放
+      this.carouselRun();
+    },
+    move(e){
+      this.touchData.len=e.touches[0].pageX-this.touchData.strat;
     }
   },
   created() {
