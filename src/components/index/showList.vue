@@ -64,26 +64,23 @@ export default {
 			})
 		},
 		touchStart(e) {
-			// console.log("上一次开始的点是"+this.touchData.start)
-			// console.log("这一次开始的点是"+e.touches[0].pageX);
 			this.touchData.start = e.touches[0].pageX;//获取触控点开始相对于屏幕左边的距离
 			
 		},
 		move(e){
-			// console.log(1);
-			// console.log("移动的"+e.touches[0].pageX);//获取触控点相对于屏幕左边的距离
-			// this.touchData.len
 			this.touchData.end = this.touchData.add;
 			this.touchData.len = e.touches[0].pageX-this.touchData.start;//获取拖动的距离
 		},
 		leave(e){
-			console.log(this.touchData.end);
-			if(this.touchData.end>0){
-					console.log("这个大于0");
-				this.$refs.sw.style.transform="translateX(0px)";
-				return;
-			}
-				// console.log(this.touchData.end);
+			// console.log(this.touchData.end+this.touchData.len);
+			if(this.touchData.end+this.touchData.len>0){//当translateX>0 就在往左边溢出了  拽回0
+        this.$refs.sw.style.transform="translateX(0px)";
+				return;//拽回之后不让add叠加值直接跳出函数
+			}else if(this.touchData.end+this.touchData.len<-this.$refs.sw.offsetWidth*0.77){//当translateX>0 就在往左边溢出了  拽回0.77 100%-(19%+0.5%*4)=79;
+        console.log( this.$refs.sw.offsetWidth);
+        this.$refs.sw.style.transform=`translateX(-${this.$refs.sw.offsetWidth*0.77}px)`;
+        return;//拽回之后不让add叠加值直接跳出函数
+      }
 			this.touchData.add +=	this.touchData.len;
 		}
 				
@@ -134,7 +131,7 @@ export default {
   transition: all 0.5s linear;
 }
 .show-list li + li {
-  margin-left: 0.5rem;
+  margin-left: 0.5%;
 }
 .show-item a {
   text-decoration: none;
