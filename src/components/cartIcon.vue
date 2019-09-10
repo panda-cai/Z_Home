@@ -9,7 +9,7 @@
 		margin-left:2%; 
 		height: 32px;
 		width: 15%;
-		border:1px solid #e7eaec;
+		/* border:1px solid #e7eaec; */
     position: relative;
 	}
 	.cart img{

@@ -1,7 +1,6 @@
 <template>
 	<div class="search">
 		<input type="text" placeholder="请输入要搜索的内容">
-		<cart-icon></cart-icon>
 	</div>
 </template>
 <script>
@@ -14,17 +13,12 @@ export default {
 </script>
 <style scoped>
 	.search{
-		background: #fff;
-		height: 48px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		/* width: 80%; */
+		 width: 72%;
 	}
 	.search input{
-		width: 70%;
+		width: 100%;
 		color: #9fa1a8;
-		height: 30px;
+		height: 26px;
 		border:1px solid #e7eaec;
 		font-size: 12px;
 		padding-left:36px; 

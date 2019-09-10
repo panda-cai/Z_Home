@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<zj-header :active="active"></zj-header>
+		<div class="fill-top"></div>
 		<mt-tab-container v-model="active">
 			<mt-tab-container-item id="tab1">
 				<carousel></carousel>
@@ -101,5 +102,9 @@ export default {
 	.fill-buttom{
 		width: 100%;
 		height: 56px;
+	}
+	.fill-top{
+		width: 100%;
+		height: 48px;
 	}
 </style>
