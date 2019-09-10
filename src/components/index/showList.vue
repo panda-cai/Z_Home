@@ -4,7 +4,7 @@
     <div class="showtitle">
       <p class="title">{{title}}</p>
       <div class="showpage">
-        <span>{{pon}}</span>
+        <span>{{Math.ceil(pon)}}</span>
         <span>/5</span>
       </div>
     </div>
@@ -69,16 +69,23 @@ export default {
 		},
 		move(e){
 			this.touchData.end = this.touchData.add;
-			this.touchData.len = e.touches[0].pageX-this.touchData.start;//获取拖动的距离
+      this.touchData.len = e.touches[0].pageX-this.touchData.start;//获取拖动的距离
+      this.pon=-(this.touchData.end+this.touchData.len)/(this.$refs.sw.offsetWidth/5);
+      // 计算pon的值=已经滑动的距离/一个LI的长度 再向上取整
+      if(this.pon>5){//如果pon>5则拉回5
+         this.pon=5;
+       }else if(this.pon<1){//如果pon<1则拉回1
+         this.pon=1;
+       }
 		},
 		leave(e){
 			// console.log(this.touchData.end+this.touchData.len);
 			if(this.touchData.end+this.touchData.len>0){//当translateX>0 就在往左边溢出了  拽回0
         this.$refs.sw.style.transform="translateX(0px)";
 				return;//拽回之后不让add叠加值直接跳出函数
-			}else if(this.touchData.end+this.touchData.len<-this.$refs.sw.offsetWidth*0.77){//当translateX>0 就在往左边溢出了  拽回0.77 100%-(19%+0.5%*4)=79;
-        console.log( this.$refs.sw.offsetWidth);
-        this.$refs.sw.style.transform=`translateX(-${this.$refs.sw.offsetWidth*0.77}px)`;
+			}else if(this.touchData.end+this.touchData.len<-this.$refs.sw.offsetWidth*0.8){//当translateX>0 就在往左边溢出了  拽回0.77 100%-(19%+0.5%*4)=79;
+        // console.log( this.$refs.sw.offsetWidth);
+        this.$refs.sw.style.transform=`translateX(-${this.$refs.sw.offsetWidth*0.8}px)`;
         return;//拽回之后不让add叠加值直接跳出函数
       }
 			this.touchData.add +=	this.touchData.len;
@@ -125,7 +132,7 @@ export default {
   white-space: nowrap;
 }
 .show-item {
-  width: 19%;
+  width: 19.6%;
 }
 .transition-show {
   transition: all 0.5s linear;
