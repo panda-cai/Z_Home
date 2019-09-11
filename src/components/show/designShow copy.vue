@@ -3,10 +3,7 @@
   <div class="new-product inner-border">
     <div class="showtitle">
       <p class="title">{{title}}</p>
-      <div class="showpage">
-        <span>{{Math.ceil(pon)}}</span>
-        <span>/5</span>
-      </div>
+        <router-link to="/" class="more">更多</router-link>
     </div>
     <ul
       class="show-list"
@@ -19,21 +16,17 @@
       <!-- :style="'transform:translateX('+touchData.len+'px)'" -->
       <li class="show-item" v-for="(elem,i) of showlist" :key="i">
         <router-link to="/">
-          <img :src="elem.img" alt class="product-img" />
-          <div class="product-info">
-            <div class="product-title">
-              <span>{{elem.title}}</span>
-              <span>￥{{elem.price.toFixed(2)}}</span>
-            </div>
-            <div class="product-subtitle">{{elem.subtitle}}</div>
-          </div>
+          <img :src="elem.showimg" alt class="product-img" />
+          <div class="design-title">{{elem.title}}</div>
         </router-link>
+				<btngroup></btngroup>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import btngroup from "./btngroup"
 export default {
 	data(){
 		return {
@@ -47,14 +40,10 @@ export default {
 			showlist:[],
 		}
 	},
-	props:["title","position"],
+	props:["title"],
 	methods:{
-		getShowlist(){
-			this.axios.get("/index/show",{
-				params:{
-					position:this.position
-				}
-			}).then(result=>{
+		getDesignshow(){
+			this.axios.get("/index/index_design").then(result=>{
 				this.showlist=result.data;
 				// console.log(result.data);
 			})
@@ -66,13 +55,6 @@ export default {
 		move(e){
 			this.touchData.end = this.touchData.add;
       this.touchData.len = e.touches[0].pageX-this.touchData.start;//获取拖动的距离
-      this.pon=-(this.touchData.end+this.touchData.len)/(this.$refs.sw.offsetWidth/5);
-      // 计算pon的值=已经滑动的距离/一个LI的长度 再向上取整
-      if(this.pon>5){//如果pon>5则拉回5
-         this.pon=5;
-       }else if(this.pon<1){//如果pon<1则拉回1
-         this.pon=1;
-       }
 		},
 		leave(e){
 			// console.log(this.touchData.end+this.touchData.len);
@@ -89,12 +71,16 @@ export default {
 				
 	},
 	created(){
-		this.getShowlist();
-	}
+		this.getDesignshow();
+	},
+	components:{btngroup}
 }
 </script>
 
 <style scoped>
+.more{
+	font-size: 0.8rem;
+}
 .show-list {
   display: flex;
   width: 500%;
@@ -102,31 +88,17 @@ export default {
 .product-img {
   width: 100%;
 }
-.product-subtitle {
+.design-title {
   text-align: left;
-  font-size: 0.75rem;
-  color: #afb1b9;
-  overflow: hidden;
+  font-size: 0.8rem;
+  color: #000;
+	overflow: hidden;
+	font-weight: bold;
   text-overflow: ellipsis;
-  white-space: nowrap;
+	white-space: nowrap;
+	margin:0.5rem 0; 
 }
-.product-title {
-  margin: 0.5rem 0;
-  display: flex;
-  justify-content: space-between;
-  height: 1rem;
-}
-.product-title span {
-  font-weight: bold;
-  font-size: 1rem;
-}
-.product-title span:first-child {
-  text-align: left;
-  width: 70%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+
 .show-item {
   width: 19.6%;
 }

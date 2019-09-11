@@ -20,10 +20,13 @@
 				<selectedlist :class_list="table" :classimg="'images/selected_list/table.jpg'"></selectedlist>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
-				<h1>这是首页的第二个分页</h1>
+				<!-- 第二个面板########################################## -->
+				<designshow :title="'热门设计'"></designshow>
+				<inspiration-list></inspiration-list>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab3">
-				<h1>这是首页的第三个分页</h1>
+				<!-- <h1>这是首页的第三个分页</h1> -->
+				<produce-class></produce-class>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab4">
 				<h1>这是首页的第四个分页</h1>
@@ -65,6 +68,9 @@ import showlist from "../components/index/showList";
 import trial from "../components/index/trial";
 import liveshow from "../components/index/liveShow";
 import selectedlist from "../components/index/selectedList";
+import designshow from "../components/show/designShow";
+import inspirationList from "../components/show/inspirationList";
+import produceClass from "../components/product/productClass";
 export default {
 	data(){
 		return {
@@ -81,7 +87,7 @@ export default {
 		}
 	},
 	components:{
-		carousel,theme,showlist,trial,liveshow,selectedlist
+		carousel,theme,showlist,trial,liveshow,selectedlist,designshow,inspirationList,produceClass
 	}
 }
 </script>

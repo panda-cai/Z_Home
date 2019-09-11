@@ -32,7 +32,7 @@ export default {
 		z-index: 2;
 		width: 100%;
 		padding: 0 3%;
-		border-bottom:1px solid #d2d2d2;
+		/* border-bottom:1px solid #d2d2d2; */
 		box-sizing: border-box; 
 	}
 </style>
