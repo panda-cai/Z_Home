@@ -6,15 +6,17 @@ import mintUI from 'mint-ui'
 import axios from 'axios'//配置axios
 import zjHeader from "./components/index/header"
 import cartIcon from "./components/cartIcon";//全局组件购物车icon
-import { TreeSelect } from "vant";
-
+import Vant from "vant";
 import "vant/lib/index.css";
+
+Vue.use(Vant);
+
 Vue.config.productionTip = false
 import "mint-ui/lib/style.css";
 //设置axios的默认请求路径
 axios.defaults.baseURL="http://127.0.0.1:3001";
 // 注册
-Vue.use(mintUI).use(TreeSelect);
+Vue.use(mintUI);
 Vue.prototype.axios=axios;
 // 注册
 axios.defaults.withCredentials=true;

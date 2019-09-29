@@ -74,7 +74,7 @@ import produceClass from "../components/product/productClass";
 export default {
 	data(){
 		return {
-			active:"tab1",
+			active:"tab3",
 			chair:["推荐","餐椅","休闲椅","坐凳坐墩"],
 			decorate:["推荐","挂画","抱枕","摆件"],
 			sofa:["推荐","单人沙发","双人沙发","多人沙发"],
