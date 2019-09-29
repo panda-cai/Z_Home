@@ -19,3 +19,7 @@ ul{
 .inner-border{
   padding:0 5%;
 }
+.my-small{
+  font-size: 0.8rem;
+  color:#999;
+}
