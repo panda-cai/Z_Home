@@ -15,16 +15,16 @@
       </ul>
       <mt-tab-container v-model="group" swipeable>
         <mt-tab-container-item id="group1">
-          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
+          <selectitem :main_id="4" :minor_id="12"></selectitem>
         </mt-tab-container-item>
         <mt-tab-container-item id="group2">
-          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
+          <selectitem :main_id="4" :minor_id="12"></selectitem>
         </mt-tab-container-item>
         <mt-tab-container-item id="group3">
-          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
+          <selectitem :main_id="4" :minor_id="12"></selectitem>
         </mt-tab-container-item>
         <mt-tab-container-item id="group4">
-          <selectitem :p_class="'chair'" :detail_class="'dining'"></selectitem>
+          <selectitem :main_id="4" :minor_id="12"></selectitem>
         </mt-tab-container-item>
       </mt-tab-container>
     </div>

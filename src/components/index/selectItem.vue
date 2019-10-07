@@ -17,11 +17,13 @@ export default {
 		return {list:[]}
 	},
 	methods:{
-		getList(){
-			this.axios.get("/index/index_product",{
+		// 排序函数1为正常顺序 2为价格升序 3为价格降序
+		getList(sort){
+			this.axios.get("/product/productList",{
 				params:{
-					p_class:this.p_class,
-					detail_class:this.detail_class
+					main_id:this.main_id,
+					minor_id:this.minor_id,
+					sort:sort
 				}
 			}).then(result=>{
 				this.list=result.data;
@@ -30,9 +32,21 @@ export default {
 		}
 	},
 	created(){
-		this.getList();
+		this.getList(1);
+		console.log(this.radio);
 	},
-	props:['p_class','detail_class']
+	props:['main_id','minor_id','radio'],
+	watch:{
+		radio(){
+			if(this.radio==1){
+				this.getList(1);
+			}else if(this.radio==2){
+				this.getList(2);
+			}else if(this.radio==3){
+				this.getList(3);
+			}
+		}
+	}
 }
 </script>
 <style scoped>

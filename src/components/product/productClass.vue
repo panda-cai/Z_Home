@@ -20,21 +20,18 @@
       </ul>
     </div>
     <van-tabs v-model="active">
-      <van-tab>第0个</van-tab>
-      <van-tab>第1个</van-tab>
-      <van-tab>第2个</van-tab>
-      <van-tab>第3个</van-tab>
-      <van-tab>第3个</van-tab>
-      <van-tab>第3个</van-tab>
-      <van-tab>第3个</van-tab>
-      <van-tab>第3个</van-tab>
+      <van-tab v-for="(elem,i) of list" :key="i">
+        <class-item :main_id="elem.main_id"></class-item>
+      </van-tab>
     </van-tabs>
   </div>
 </template>
 <script>
+import classItem from "./productClassItem"
 export default {
   data() {
     return {
+      list:[],
       active: 0,
       start: 0,
       len: 0,
@@ -42,7 +39,16 @@ export default {
       end: 0
     };
   },
+  components:{
+    classItem
+  },
   methods: {
+    getmainClass(){
+      this.axios.get('/index/mainClass').then(res=>{
+        console.log(res.data);
+        this.list=res.data;
+      });
+    },
     changeClass(e) {
       if (e.target.nodeName == "LI") {
         var index = e.target.getAttribute("data-i");
@@ -71,6 +77,9 @@ export default {
       }
       this.add += this.len;
     }
+  },
+  created(){
+    this.getmainClass();
   }
 };
 </script>

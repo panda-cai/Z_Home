@@ -22,12 +22,12 @@
     position: absolute;
     border-radius:50%;
     background: #ffac03; 
-    width: 15px;
-    height: 15px;
+    width: 1rem;
+    height: 1rem;
     top:-5px;
     right: -5px;
     color: #fff;
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 15px;
     text-align: center;
   }
