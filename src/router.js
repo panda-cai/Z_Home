@@ -5,6 +5,7 @@ import classList from "./views/classList"
 import detail from "./views/detail"
 import login from "./views/login"
 import register from "./views/register"
+import cart from "./views/cart"
 import test from "./components/product/productClassItem"
 
 Vue.use(Router)
@@ -18,5 +19,6 @@ export default new Router({
     {path: '/detail',component:detail,props:true},
     {path: '/login',component:login},
     {path: '/register',component:register},
+    {path: '/cart',component:cart}
   ]
 })
