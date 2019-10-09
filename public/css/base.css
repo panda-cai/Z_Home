@@ -23,3 +23,6 @@ ul{
   font-size: 0.8rem;
   color:#999;
 }
+.van-swipe__indicator{
+	background-color:#000 !important;
+}

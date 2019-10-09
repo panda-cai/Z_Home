@@ -11,13 +11,13 @@
 				<trial :toTrial="toTrial"></trial>
 				<liveshow></liveshow>
 				<!-- 理论上大分类应该由index传给list  详细分类由list传给item  这里所有分类都是由list传给item并不太完美往后改正 -->
-				<selectedlist :top_title="'精选目录'" :class_list="chair" :classimg="'images/selected_list/chair.jpg'"></selectedlist>
+				<selectedlist :top_title="'精选目录'" :class_list="chair" :classimg="'http://127.0.0.1:5050/images/selected_list/chair.jpg'"></selectedlist>
 				<div class="split"></div>
-				<selectedlist :class_list="decorate" :classimg="'images/selected_list/decorate.jpg'"></selectedlist>
+				<selectedlist :class_list="decorate" :classimg="'http://127.0.0.1:5050/images/selected_list/decorate.jpg'"></selectedlist>
 				<div class="split"></div>
-				<selectedlist :class_list="sofa" :classimg="'images/selected_list/sofa.jpg'"></selectedlist>
+				<selectedlist :class_list="sofa" :classimg="'http://127.0.0.1:5050/images/selected_list/sofa.jpg'"></selectedlist>
 				<div class="split"></div>
-				<selectedlist :class_list="table" :classimg="'images/selected_list/table.jpg'"></selectedlist>
+				<selectedlist :class_list="table" :classimg="'http://127.0.0.1:5050/images/selected_list/table.jpg'"></selectedlist>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab2">
 				<!-- 第二个面板########################################## -->
@@ -30,6 +30,7 @@
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab4">
 				<h1>这是首页的第四个分页</h1>
+				<button @click="test">点击我测试</button>
 			</mt-tab-container-item>
 			<mt-tab-container-item id="tab5">
 				<h1>这是首页的第五个分页</h1>
@@ -84,6 +85,11 @@ export default {
 	methods:{
 		toTrial(){
 			this.active="tab4";
+		},
+		test(){
+			this.axios.get('/user/test').then(res=>{
+				console.log(res.data);
+			})
 		}
 	},
 	components:{

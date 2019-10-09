@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import mintUI from 'mint-ui'
 import axios from 'axios'//配置axios
+import qs from 'qs'//配置axios
 import zjHeader from "./components/index/header"
 import backHeader from "./components/backHeader"
 import cartIcon from "./components/cartIcon";//全局组件购物车icon
@@ -19,6 +20,7 @@ axios.defaults.baseURL="http://127.0.0.1:5050";
 // 注册
 Vue.use(mintUI);
 Vue.prototype.axios=axios;
+Vue.prototype.qs=qs;
 // 注册
 axios.defaults.withCredentials=true;
 //保存sassion信息
