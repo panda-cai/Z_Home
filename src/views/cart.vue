@@ -7,31 +7,34 @@
       <span>购物车</span>
     </div>
     <div class="product-list">
-    <van-swipe-cell>
-      <!-- <van-cell :border="false" title="单元格" /> -->
-      <div class="cart-card">
-        <div class="left">
-          <van-checkbox v-model="checked" checked-color="#ff9704">
-            <img src="images/sofa1.jpg" alt="">
-          </van-checkbox>
-        </div>
-        <div class="right">
-          <span class="title">主标题</span>
-          <div class="my-small ms">
-            <span>款式:粉色</span>
-            <span>规格:57cm*61cm*76cm</span>
+      <van-swipe-cell v-for="(elem,i) of list" :key="i" class="product-item">
+        <!-- <van-cell :border="false" title="单元格" /> -->
+        <div class="cart-card">
+          <div class="left">
+            <van-checkbox v-model="elem.is_check" checked-color="#ff9704">
+              <img src="images/sofa1.jpg" alt />
+            </van-checkbox>
           </div>
-          <div class="down">
-            <span class="price">￥123</span>
-            <div><van-stepper v-model="value" /></div>
+          <div class="right">
+            <span class="title">{{elem.title}}</span>
+            <div class="my-small ms">
+              <span>款式:{{elem.style}}</span>
+              <span>规格:{{elem.spec}}</span>
+            </div>
+            <div class="down">
+              <span class="price">￥{{elem.price}}</span>
+              <div>
+                <van-stepper v-model="elem.count" />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
         <template slot="right">
           <van-button square type="danger" text="删除" />
         </template>
-    </van-swipe-cell>
+      </van-swipe-cell>
     </div>
+    <van-submit-bar :price="3050" button-text="提交订单"/>
   </div>
 </template>
 
@@ -39,33 +42,54 @@
 export default {
   data() {
     return {
-      checked:true
+      checked: true,
+      list: []
     };
   },
   methods: {
+    getcart() {
+      this.axios.get("/product/cart").then(res => {
+        if (res.data.code < 0) {
+          this.$router.push("/login");
+        } else {
+          this.list = res.data;
+        }
+      });
+    },
     back() {
       this.$router.go(-1);
     }
+  },
+  created() {
+    this.getcart();
+  },
+  mounted(){
+    var radio=document.querySelectorAll(".product-list");
+    console.dir(radio);
   }
 };
 </script>
 
 <style scoped>
-.price{
-  margin-right:0.5rem;
+.product-item {
+  margin-bottom: 0.5rem;
+}
+.price {
+  margin-right: 0.5rem;
   color: #000;
   font-weight: bold;
 }
-.down{
+.down {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-.title{
+.title {
   color: #000;
   font-size: 1rem;
 }
-.right{
-  padding:0.5rem 0 0 0.5rem;
+.right {
+  padding: 0.5rem 0 0 0.5rem;
 }
 .right .ms {
   display: flex;
@@ -73,17 +97,17 @@ export default {
   text-align: left;
   margin-bottom: 1rem;
 }
-.cart-card{
+.cart-card {
   display: flex;
 }
-.left img{
-  width: 8rem;
-  border:1px solid #f5f5f5; 
+.left img {
+  width: 6rem;
+  border: 1px solid #f5f5f5;
 }
-.van-button{
+.van-button {
   height: 100%;
 }
-.teststyle{
+.teststyle {
   display: block;
   padding: 5rem 0;
 }

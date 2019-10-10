@@ -2,7 +2,7 @@
 <!-- 负责绘制商品列表的组件 -->
 		<ul class="product-list">
 			<li v-for="(elem,i) of list" :key="i">
-				<router-link to="/">
+				<router-link :to="'/detail/'+elem.pid">
 				<div class="priduct-img"><img :src="elem.showimg" alt=""></div>
 				<span class="product-title">{{elem.title}}</span>
 				<span class="product-price">￥{{elem.price}}</span>
@@ -27,13 +27,11 @@ export default {
 				}
 			}).then(result=>{
 				this.list=result.data;
-				// console.log(this.list);
 				});
 		}
 	},
 	created(){
 		this.getList(1);
-		console.log(this.radio);
 	},
 	props:['main_id','minor_id','radio'],
 	watch:{

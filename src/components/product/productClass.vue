@@ -45,7 +45,6 @@ export default {
   methods: {
     getmainClass(){
       this.axios.get('/index/mainClass').then(res=>{
-        console.log(res.data);
         this.list=res.data;
       });
     },

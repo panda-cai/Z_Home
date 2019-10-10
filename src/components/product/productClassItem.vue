@@ -29,7 +29,6 @@ export default {
         }
       }).then(res=>{
         // console.log("进入了函数2");
-        console.log(res.data);
         this.list=res.data;
       })
     }

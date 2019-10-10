@@ -131,7 +131,7 @@ export default {
   data() {
     return {
       scrollTop: 0,
-      p_data:''
+      p_data:{price:0,subprice:0}
     };
   },
   props:['pid'],
@@ -140,19 +140,17 @@ export default {
       this.axios.get("/product/detail",
         {
           params:{
-            pid:1
+            pid:this.pid
           }
         }
       ).then(res=>{
         // console.log(res.data[0]);
         this.p_data=res.data[0];
-        console.log(this.p_data);
       })
     },
     scroll_to(e) {
       if (e.target.nodeName == "LI") {
         var y = parseInt(e.target.getAttribute("data-scroll"));
-        console.log(y);
         window.scrollTo(0, y);
       }
     },
@@ -169,18 +167,20 @@ export default {
       this.$router.go(-1);
     },
     addCart(){
-      this.axios.get("/product/cart",{
+      this.axios.get("/product/addcart",{
         params:{
           pid:this.p_data.pid,
           show_img:'http://127.0.0.1:5050/images/product/chair1.png',
           style:this.p_data.style,
-          spec:this.p_data.spec
+          spec:this.p_data.spec,
+          title:this.p_data.title,
+          price:this.p_data.price
         }
       }).then(res=>{
         if(res.data.code>0){
-          Toast('加入成功');
+          this.$toast('加入成功');
         }else{
-          Toast('加入失败');
+          this.$router.push("/login");
         }
       });
     }
