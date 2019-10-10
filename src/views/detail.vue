@@ -5,11 +5,23 @@
       <div class="backicon" @click="back">
         <img src="images/icon_my_enter.png" alt />
       </div>
-			<ul class="top-list" ref="top_list" @click="scroll_to">
-				<li class="product-target" :style="scrollTop>0&&scrollTop<400?'border-color:black':''" data-scroll="0">商品</li>
-				<li class="comment-target" :style="scrollTop>=400&&scrollTop<1000?'border-color:black':''" data-scroll="350">评论</li>
-				<li class="detail-target" :style="scrollTop>=1000?'border-color:black':''" data-scroll="1000">详情</li>
-			</ul>
+      <ul class="top-list" ref="top_list" @click="scroll_to">
+        <li
+          class="product-target"
+          :style="scrollTop>0&&scrollTop<400?'border-color:black':''"
+          data-scroll="0"
+        >商品</li>
+        <li
+          class="comment-target"
+          :style="scrollTop>=400&&scrollTop<1000?'border-color:black':''"
+          data-scroll="350"
+        >评论</li>
+        <li
+          class="detail-target"
+          :style="scrollTop>=1000?'border-color:black':''"
+          data-scroll="1000"
+        >详情</li>
+      </ul>
       <cart-icon></cart-icon>
     </div>
     <van-swipe indicator-color="black" show-indicators>
@@ -31,9 +43,9 @@
     </van-swipe>
     <div class="product-info inner-border">
       <div class="top">
-        <span class="price">￥1234.00</span>
-        <span class="sub-price my-small">市场价:￥2056.00</span>
-        <span class="product-title">汉哲北欧单人沙发椅简约现代阳台休闲单椅小户型客厅布艺实木椅子</span>
+        <span class="price">￥{{p_data.price.toFixed(2)}}</span>
+        <span class="sub-price my-small">市场价:￥{{p_data.subprice.toFixed(2)}}</span>
+        <span class="product-title">{{p_data.title}}</span>
       </div>
       <div class="down">
         <span class="font-style">服务</span>
@@ -107,61 +119,101 @@
       <img src="images/detail_img/detail_14.jpg" alt />
       <img src="images/detail_img/detail_15.jpg" alt />
     </div>
+    <van-goods-action>
+      <van-goods-action-button type="warning" text="加入购物车" @click="addCart" />
+      <van-goods-action-button type="danger" text="立即购买" />
+    </van-goods-action>
   </div>
 </template>
 
 <script>
 export default {
-	data(){
-		return {
-			scrollTop:0
-		}
-	},
-	methods:{
-		scroll_to(e){
-			if(e.target.nodeName=="LI"){
-				var y=parseInt(e.target.getAttribute("data-scroll"));
-				console.log(y);
-				window.scrollTo(0,y);
-			}
-		},
-		scroll_handle(){
-			this.scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-			if(this.scrollTop>50){
-				this.$refs.top_list.style.opacity=1;
-			}else{
-				this.$refs.top_list.style.opacity=0;
-			}
-		},
-		back(){
+  data() {
+    return {
+      scrollTop: 0,
+      p_data:''
+    };
+  },
+  props:['pid'],
+  methods: {
+    getData(){
+      this.axios.get("/product/detail",
+        {
+          params:{
+            pid:1
+          }
+        }
+      ).then(res=>{
+        // console.log(res.data[0]);
+        this.p_data=res.data[0];
+        console.log(this.p_data);
+      })
+    },
+    scroll_to(e) {
+      if (e.target.nodeName == "LI") {
+        var y = parseInt(e.target.getAttribute("data-scroll"));
+        console.log(y);
+        window.scrollTo(0, y);
+      }
+    },
+    scroll_handle() {
+      this.scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      if (this.scrollTop > 50) {
+        this.$refs.top_list.style.opacity = 1;
+      } else {
+        this.$refs.top_list.style.opacity = 0;
+      }
+    },
+    back() {
       this.$router.go(-1);
-			}
-	},
-	mounted(){
-		window.addEventListener('scroll',this.scroll_handle);
-		// console.dir(detail);
-	},
-	destroyed(){
-		window.removeEventListener('scroll', this.scroll_handle);
-	}
+    },
+    addCart(){
+      this.axios.get("/product/cart",{
+        params:{
+          pid:this.p_data.pid,
+          show_img:'http://127.0.0.1:5050/images/product/chair1.png',
+          style:this.p_data.style,
+          spec:this.p_data.spec
+        }
+      }).then(res=>{
+        if(res.data.code>0){
+          Toast('加入成功');
+        }else{
+          Toast('加入失败');
+        }
+      });
+    }
+  },
+  created(){
+    this.getData();
+    // console.log(this.p_data);
+  },
+  mounted() {
+    window.addEventListener("scroll", this.scroll_handle);
+    // console.dir(detail);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.scroll_handle);
+  }
 };
 </script>
 
 <style scoped>
-.top-list{
-	display: flex;
-	opacity: 0;
-	transition: all 0.5s;
-	align-items: flex-end;
+.top-list {
+  display: flex;
+  opacity: 0;
+  transition: all 0.5s;
+  align-items: flex-end;
 }
-.top-list li{
-	color: #000;
-	margin-left:0.5rem; 
-	font-size: 0.8rem;
-	border-bottom: 2px solid transparent;
-	padding-bottom: 0.6rem;
+.top-list li {
+  color: #000;
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.6rem;
 }
-.back{
+.back {
   height: 3rem;
   display: flex;
   justify-content: space-between;
@@ -169,11 +221,11 @@ export default {
   background: #fff;
   box-sizing: border-box;
 }
-.backicon img{
+.backicon img {
   transform: rotate(180deg);
   width: 2rem;
 }
-.fixed{
+.fixed {
   width: 100%;
   position: fixed;
   left: 0;

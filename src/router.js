@@ -16,7 +16,7 @@ export default new Router({
     {path: '/index',component:index},
     {path: '/test',component:test},
     {path: '/classlist/:main_id/:activeName',component:classList,props:true},
-    {path: '/detail',component:detail,props:true},
+    {path: '/detail/:pid',component:detail,props:true},
     {path: '/login',component:login},
     {path: '/register',component:register},
     {path: '/cart',component:cart}
